@@ -31,12 +31,11 @@ def problem_2_function(dataset,
     result = dict()
     for d in range(0,depth+1):
         excluded_combinations_at_depth = set()
-        result_at_depth = initialize_result_matrix(dataset, 
-                                                   dimensions, 
-                                                   d)
         combinations = get_combinations(dataset, 
                                         dimensions, 
-                                        d)
+                                        d,
+                                        excluded_combinations)
+        result_at_depth = initialize_result_matrix(combinations)
         for combination in combinations:
             if not is_a_subset(combination, excluded_combinations):
                 if threshold_func(dataset, combination):
@@ -76,8 +75,8 @@ def threshold_function(dataset,
 
 # Functions to be defined: 
 # apply_filter(dataset, filters)
-# get_combinations(dataset, dimensions, depth)
-# initialize_result_matrix(dataset, dimensions, depth)
+# get_combinations(dataset, dimensions, depth, excluded_combinations)
+# initialize_result_matrix(combinations)
 # is_a_subset(combination, excluded_combinations)
 # count(filtered_dataset)
 
